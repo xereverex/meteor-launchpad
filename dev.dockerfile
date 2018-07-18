@@ -1,4 +1,4 @@
-FROM jshimko/meteor-launchpad:base
+FROM everex/launchpad:base
 MAINTAINER Jeremy Shimko <jeremy.shimko@gmail.com>
 
 ENV DEV_BUILD true
