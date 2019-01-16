@@ -1,0 +1,43 @@
+pipeline {
+    agent { label "node3" }
+    options { disableConcurrentBuilds() }
+
+    stages {
+        stage("Checkout") {
+          steps {
+            cleanWs()
+            checkout([$class: 'GitSCM', branches: [[name: '$BRANCH']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '83ff6dc5-45b4-4996-b383-e1f225203f3c', url: 'git@github.com:EverexIO/meteor-launchpad.git']]])
+          }
+        }
+        stage('Build prod version') {
+          steps {
+              withCredentials([usernamePassword(credentialsId: params.CREDS, passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
+                sh '''
+                docker build -t $DOCKERHUB_NAME .
+                docker login -u=$USER -p=$PASSWORD
+                docker tag $DOCKERHUB_NAME:latest
+                docker push $DOCKERHUB_NAME:latest
+                '''
+              }
+          }
+        }
+        stage('Build debug version') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: params.CREDS, passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
+                  sh '''
+                  docker build -f dev.Dockerfile -t $DOCKERHUB_NAME .
+                  docker login -u=$USER -p=$PASSWORD
+                  docker tag $DOCKERHUB_NAME:latest-dev
+                  docker push $DOCKERHUB_NAME:latest-dev
+                  '''
+                }
+            }
+        }
+
+    }
+    post {
+      always {
+        cleanWs()
+      }
+    }
+}
