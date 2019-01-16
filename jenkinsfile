@@ -13,9 +13,8 @@ pipeline {
           steps {
               withCredentials([usernamePassword(credentialsId: params.CREDS, passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
                 sh '''
-                docker build -t $DOCKERHUB_NAME .
+                docker build -t $DOCKERHUB_NAME:latest .
                 docker login -u=$USER -p=$PASSWORD
-                docker tag $DOCKERHUB_NAME:latest
                 docker push $DOCKERHUB_NAME:latest
                 '''
               }
@@ -25,9 +24,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: params.CREDS, passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
                   sh '''
-                  docker build -f dev.Dockerfile -t $DOCKERHUB_NAME .
+                  docker build -f dev.Dockerfile -t $DOCKERHUB_NAME:latest-dev .
                   docker login -u=$USER -p=$PASSWORD
-                  docker tag $DOCKERHUB_NAME:latest-dev
                   docker push $DOCKERHUB_NAME:latest-dev
                   '''
                 }
