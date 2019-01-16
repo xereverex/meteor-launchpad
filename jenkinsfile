@@ -24,7 +24,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: params.CREDS, passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
                   sh '''
-                  docker build -f dev.Dockerfile -t $DOCKERHUB_NAME:latest-dev .
+                  docker build -f dev.dockerfile -t $DOCKERHUB_NAME:latest-dev .
                   docker login -u=$USER -p=$PASSWORD
                   docker push $DOCKERHUB_NAME:latest-dev
                   '''
