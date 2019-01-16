@@ -22,7 +22,8 @@ export METEOR_ALLOW_SUPERUSER=true
 cp -r $NPM_DIRECTORY/node_modules $APP_SOURCE_DIR/node_modules
 cp  $NPM_DIRECTORY/package-lock.json $APP_SOURCE_DIR/package-lock.json
 cd $APP_SOURCE_DIR
-
+ls -la node_modules
+cat package-lock.json
 # Install app deps
 printf "\n[-] Running npm install in app directory...\n\n"
 meteor npm install --debug
@@ -37,6 +38,8 @@ printf "\n[-] Running npm install in the server bundle...\n\n"
 cd $APP_BUNDLE_DIR/bundle/programs/server/
 cp -r $NPM_DIRECTORY/node_modules $APP_BUNDLE_DIR/bundle/programs/server/node_modules
 cp  $NPM_DIRECTORY/package-lock.json $APP_BUNDLE_DIR/bundle/programs/server/package-lock.json
+ls -la node_modules
+cat package-lock.json
 meteor npm install --debug
 
 # put the entrypoint script in WORKDIR
