@@ -29,6 +29,7 @@ RUN $BUILD_SCRIPTS_DIR/install-meteor.sh
 
 COPY . $NPM_DIRECTORY
 RUN cd $NPM_DIRECTORY && export METEOR_ALLOW_SUPERUSER=true && meteor npm install
+RUN cd $NPM_DIRECTORY/server-npm && export METEOR_ALLOW_SUPERUSER=true && meteor npm install --production
 
 # copy the app to the container
 ONBUILD COPY . $APP_SOURCE_DIR
