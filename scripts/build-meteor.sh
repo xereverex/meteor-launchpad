@@ -19,6 +19,8 @@ fi
 # https://github.com/meteor/meteor/issues/7959
 export METEOR_ALLOW_SUPERUSER=true
 
+cp -r $NPM_DIRECTORY/node_modules $APP_SOURCE_DIR/node_modules
+cp  $NPM_DIRECTORY/package.lock $APP_SOURCE_DIR/package.lock
 cd $APP_SOURCE_DIR
 
 # Install app deps

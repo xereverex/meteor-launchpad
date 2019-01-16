@@ -9,6 +9,7 @@ ENV GOSU_VERSION 1.10
 ENV APP_SOURCE_DIR /opt/meteor/src
 ENV APP_BUNDLE_DIR /opt/meteor/dist
 ENV BUILD_SCRIPTS_DIR /opt/build_scripts
+ENV NPM_DIRECTORY /opt/meteor/npm
 
 # Add entrypoint and build scripts
 COPY scripts $BUILD_SCRIPTS_DIR
@@ -25,6 +26,9 @@ RUN if [ "$APT_GET_INSTALL" ]; then apt-get update && apt-get install -y $APT_GE
 RUN $BUILD_SCRIPTS_DIR/install-deps.sh
 RUN $BUILD_SCRIPTS_DIR/install-node.sh
 RUN $BUILD_SCRIPTS_DIR/install-meteor.sh
+
+COPY . $NPM_DIRECTORY
+RUN cd $NPM_DIRECTORY && export METEOR_ALLOW_SUPERUSER=true && meteor npm install
 
 # copy the app to the container
 ONBUILD COPY . $APP_SOURCE_DIR
