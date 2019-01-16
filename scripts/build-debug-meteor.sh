@@ -34,9 +34,9 @@ meteor build --debug --directory $APP_BUNDLE_DIR --server-only
 
 # run npm install in bundle
 printf "\n[-] Running npm install in the server bundle...\n\n"
-cp -r $APP_SOURCE_DIR/node_modules $APP_BUNDLE_DIR/bundle/programs/server/node_modules
-cp  $APP_SOURCE_DIR/package-lock.json $APP_BUNDLE_DIR/bundle/programs/server/package-lock.json
 cd $APP_BUNDLE_DIR/bundle/programs/server/
+cat package.json
+meteor npm install --debug
 
 # put the entrypoint script in WORKDIR
 mv $BUILD_SCRIPTS_DIR/entrypoint.sh $APP_BUNDLE_DIR/bundle/entrypoint.sh
