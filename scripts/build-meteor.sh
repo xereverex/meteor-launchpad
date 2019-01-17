@@ -34,7 +34,7 @@ meteor build --directory $APP_BUNDLE_DIR --server-only
 
 # run npm install in bundle
 printf "\n[-] Running npm install in the server bundle...\n\n"
-cat package.json
+cd $APP_BUNDLE_DIR/bundle/programs/server/
 meteor npm install --production
 
 # put the entrypoint script in WORKDIR

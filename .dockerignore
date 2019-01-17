@@ -1,5 +1,2 @@
-.circleci
 .git
-build.sh
-deploy.sh
 *.md
