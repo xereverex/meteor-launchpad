@@ -12,7 +12,6 @@ COPY npm $NPM_DIRECTORY
 
 RUN chmod -R 750 $BUILD_SCRIPTS_DIR && \
   $BUILD_SCRIPTS_DIR/install-deps.sh && \
-  $BUILD_SCRIPTS_DIR/install-node.sh && \
   $BUILD_SCRIPTS_DIR/install-meteor.sh && \
   $BUILD_SCRIPTS_DIR/post-install-cleanup.sh && \
   cd $NPM_DIRECTORY && export METEOR_ALLOW_SUPERUSER=true && meteor npm install --debug

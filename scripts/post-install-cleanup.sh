@@ -13,6 +13,8 @@ rm -rf /var/lib/{cache,log}
 rm -rf /root/{.cache,.config,.local}
 rm -rf /tmp/*
 
-# remove os dependencies
+apt-get purge -y --auto-remove apt-transport-https build-essential bsdtar bzip2 ca-certificates curl git python
 apt-get -y autoremove
+apt-get -y clean
+apt-get -y autoclean
 rm -rf /var/lib/apt/lists/*
