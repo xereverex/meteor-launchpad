@@ -1,6 +1,4 @@
-FROM debian:jessie
-
-RUN groupadd -r node && useradd -m -g node node
+FROM node:8.15-jessie-slim
 
 # build directories
 ENV APP_SOURCE_DIR /opt/meteor/src
