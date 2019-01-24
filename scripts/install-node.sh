@@ -2,9 +2,8 @@
 
 set -e
 
-if [ -f $APP_SOURCE_DIR/launchpad.conf ]; then
-  source <(grep NODE_VERSION $APP_SOURCE_DIR/launchpad.conf)
-fi
+
+NODE_VERSION="8.9.0"
 
 printf "\n[-] Installing Node ${NODE_VERSION}...\n\n"
 

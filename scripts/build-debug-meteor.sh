@@ -5,15 +5,6 @@
 #
 set -e
 
-if [ -f $APP_SOURCE_DIR/launchpad.conf ]; then
-  source <(grep TOOL_NODE_FLAGS $APP_SOURCE_DIR/launchpad.conf)
-fi
-
-# set up npm auth token if one is provided
-if [[ "$NPM_TOKEN" ]]; then
-  echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-fi
-
 # Fix permissions warning in Meteor >=1.4.2.1 without breaking
 # earlier versions of Meteor with --unsafe-perm or --allow-superuser
 # https://github.com/meteor/meteor/issues/7959

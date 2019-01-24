@@ -23,8 +23,8 @@ apt-get install -y --no-install-recommends curl bzip2 bsdtar build-essential pyt
 
 dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"
 
-wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"
-wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"
+wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.10/gosu-$dpkgArch"
+wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/1.10/gosu-$dpkgArch.asc"
 
 export GNUPGHOME="$(mktemp -d)"
 
