@@ -5,7 +5,7 @@ set -e
 printf "\n[-] Installing base OS dependencies...\n\n"
 
 # install base dependencies
-
+echo -e "deb http://deb.debian.org/debian jessie main\ndeb http://security.debian.org jessie/updates main" > /etc/apt/sources.list
 apt-get update
 
 # ensure we can get an https apt source if redirected
