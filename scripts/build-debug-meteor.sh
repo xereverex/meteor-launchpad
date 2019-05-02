@@ -22,7 +22,7 @@ npm install --debug
 # build the bundle
 printf "\n[-] Building Meteor application...\n\n"
 mkdir -p $APP_BUNDLE_DIR
-meteor build --debug --directory $APP_BUNDLE_DIR --server-only
+meteor build --debug --directory $APP_BUNDLE_DIR --server-only --verbose
 
 # run npm install in bundle
 printf "\n[-] Running npm install in the server bundle...\n\n"
