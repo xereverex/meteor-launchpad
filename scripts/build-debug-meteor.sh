@@ -9,15 +9,12 @@ set -e
 # earlier versions of Meteor with --unsafe-perm or --allow-superuser
 # https://github.com/meteor/meteor/issues/7959
 export METEOR_ALLOW_SUPERUSER=true
-
-cp -r $NPM_DIRECTORY/node_modules $APP_SOURCE_DIR/node_modules
-cp  $NPM_DIRECTORY/package-lock.json $APP_SOURCE_DIR/package-lock.json
 cd $APP_SOURCE_DIR
 
 # Install app deps
 printf "\n[-] Running npm install in app directory...\n\n"
-npm cache verify
-npm install --debug
+meteor cache verify --verbose
+meteor install --debug --verbose
 
 # build the bundle
 printf "\n[-] Building Meteor application...\n\n"
@@ -27,8 +24,8 @@ meteor build --debug --directory $APP_BUNDLE_DIR --server-only --verbose
 # run npm install in bundle
 printf "\n[-] Running npm install in the server bundle...\n\n"
 cd $APP_BUNDLE_DIR/bundle/programs/server/
-meteor npm cache verify
-meteor npm install --debug
+meteor npm cache verify --verbose
+meteor npm install --debug --verbose
 
 # put the entrypoint script in WORKDIR
 mv $BUILD_SCRIPTS_DIR/entrypoint.sh $APP_BUNDLE_DIR/bundle/entrypoint.sh
