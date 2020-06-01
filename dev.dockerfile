@@ -11,7 +11,7 @@ COPY scripts $BUILD_SCRIPTS_DIR
 RUN chmod -R 750 $BUILD_SCRIPTS_DIR && \
   $BUILD_SCRIPTS_DIR/install-deps.sh && \
   $BUILD_SCRIPTS_DIR/install-meteor.sh && \
-  $BUILD_SCRIPTS_DIR/post-install-cleanup.sh
+  $BUILD_SCRIPTS_DIR/post-install-cleanup.sh && \
 
 # copy the app to the container
 ONBUILD COPY . $APP_SOURCE_DIR
