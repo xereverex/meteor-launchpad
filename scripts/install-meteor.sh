@@ -6,7 +6,7 @@ set -e
 curl -v https://install.meteor.com -o /tmp/install_meteor.sh
 
 # read in the release version in the app
-METEOR_VERSION="1.7.0.3"
+METEOR_VERSION="1.8.1"
 
 # set the release version in the install script
 sed -i.bak "s/RELEASE=.*/RELEASE=\"$METEOR_VERSION\"/g" /tmp/install_meteor.sh
