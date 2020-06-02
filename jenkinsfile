@@ -1,7 +1,10 @@
 pipeline {
     agent { label "node3" }
     options { disableConcurrentBuilds() }
-
+    environment {
+        DOCKERHUB_NAME = "everexdev/meteor"
+        dockerImage = ""
+    }
     stages {
         stage("Checkout") {
           steps {
@@ -11,25 +14,19 @@ pipeline {
         }
         stage('Build prod version') {
           steps {
-              withCredentials([usernamePassword(credentialsId: params.CREDS, passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
-                sh '''
-                docker build -t $DOCKERHUB_NAME:latest .
-                docker login -u=$USER -p=$PASSWORD
-                docker push $DOCKERHUB_NAME:latest
-                '''
-              }
+                dockerImage = docker.build(DOCKERHUB_NAME + ":$DOCKERHUB_NAME:latest")
+                docker.withRegistry('', '1a862028-6499-46dc-9e7d-831b2c3f001a'){
+                  dockerImage.push()
+                }
           }
         }
         stage('Build debug version') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: params.CREDS, passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
-                  sh '''
-                  docker build -f dev.dockerfile -t $DOCKERHUB_NAME:latest-dev .
-                  docker login -u=$USER -p=$PASSWORD
-                  docker push $DOCKERHUB_NAME:latest-dev
-                  '''
+          steps {
+                dockerImage = docker.build(DOCKERHUB_NAME + ":$DOCKERHUB_NAME:latest-dev", "dev.dockerfile")
+                docker.withRegistry('', '1a862028-6499-46dc-9e7d-831b2c3f001a'){
+                  dockerImage.push()
                 }
-            }
+          }
         }
 
     }
