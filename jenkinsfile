@@ -14,18 +14,22 @@ pipeline {
         }
         stage('Build prod version') {
           steps {
-                dockerImage = docker.build(DOCKERHUB_NAME + ":$DOCKERHUB_NAME:latest")
-                docker.withRegistry('', '1a862028-6499-46dc-9e7d-831b2c3f001a'){
-                  dockerImage.push()
-                }
+            script{
+                  dockerImage = docker.build(DOCKERHUB_NAME + ":latest", "-m 4g --memory-swap 4g .")
+                  docker.withRegistry('', '1a862028-6499-46dc-9e7d-831b2c3f001a'){
+                    dockerImage.push()
+                  }
+            }
           }
         }
         stage('Build debug version') {
           steps {
-                dockerImage = docker.build(DOCKERHUB_NAME + ":$DOCKERHUB_NAME:latest-dev", "dev.dockerfile")
-                docker.withRegistry('', '1a862028-6499-46dc-9e7d-831b2c3f001a'){
-                  dockerImage.push()
-                }
+            script{
+                  dockerImage = docker.build(DOCKERHUB_NAME + ":latest-dev", "-m 4g --memory-swap 4g -f dev.dockerfile .")
+                  docker.withRegistry('', '1a862028-6499-46dc-9e7d-831b2c3f001a'){
+                    dockerImage.push()
+                  }
+            }
           }
         }
 

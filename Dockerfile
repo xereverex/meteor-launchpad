@@ -14,7 +14,7 @@ RUN chmod -R 750 $BUILD_SCRIPTS_DIR && \
   $BUILD_SCRIPTS_DIR/install-deps.sh && \
   $BUILD_SCRIPTS_DIR/install-meteor.sh && \
   $BUILD_SCRIPTS_DIR/post-install-cleanup.sh && \
-  cd $NPM_DIRECTORY && export METEOR_ALLOW_SUPERUSER=true && meteor npm -v && meteor npm install
+  cd $NPM_DIRECTORY && export METEOR_ALLOW_SUPERUSER=true && meteor npm install
 
 # copy the app to the container
 ONBUILD COPY . $APP_SOURCE_DIR
