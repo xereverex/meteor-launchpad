@@ -36,5 +36,3 @@ rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc
 chmod +x /usr/local/bin/gosu
 
 gosu nobody true
-
-apt-get purge -y --auto-remove wget

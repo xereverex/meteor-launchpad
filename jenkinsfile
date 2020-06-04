@@ -32,6 +32,27 @@ pipeline {
             }
           }
         }
+        stage('Build prod multistage version') {
+          steps {
+            script{
+                  dockerImage = docker.build(DOCKERHUB_NAME + ":multistage-latest", "-m 4g --memory-swap 4g -f Dockerfile-multistage .")
+                  docker.withRegistry('', '1a862028-6499-46dc-9e7d-831b2c3f001a'){
+                    dockerImage.push()
+                  }
+            }
+          }
+        }
+        stage('Build debug multistage version') {
+          steps {
+            script{
+                  dockerImage = docker.build(DOCKERHUB_NAME + ":multistage-latest-dev", "-m 4g --memory-swap 4g -f dev-multistage.dockerfile .")
+                  docker.withRegistry('', '1a862028-6499-46dc-9e7d-831b2c3f001a'){
+                    dockerImage.push()
+                  }
+            }
+          }
+        }
+
 
     }
     post {
