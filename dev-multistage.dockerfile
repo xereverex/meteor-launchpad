@@ -24,4 +24,4 @@ ENTRYPOINT ["./entrypoint.sh"]
 ONBUILD COPY . $APP_SOURCE_DIR
 ONBUILD RUN cd $APP_SOURCE_DIR && \
   $BUILD_SCRIPTS_DIR/install-npm-debug-multistage.sh && \
-  meteor list
+  meteor list --allow-superuser
