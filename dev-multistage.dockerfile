@@ -10,7 +10,6 @@ ENV NPM_DIRECTORY /opt/meteor/npm
 COPY scripts $BUILD_SCRIPTS_DIR
 COPY npm $NPM_DIRECTORY
 
-printf "\n[-] Install meteor and npm modules...\n\n"
 RUN chmod -R 750 $BUILD_SCRIPTS_DIR && \
   $BUILD_SCRIPTS_DIR/install-deps.sh && \
   $BUILD_SCRIPTS_DIR/install-meteor.sh && \
@@ -22,9 +21,7 @@ ENV MONGO_URL mongodb://127.0.0.1:27017/meteor
 ENV PORT 3000
 EXPOSE 3000
 ENTRYPOINT ["./entrypoint.sh"]
-printf "\n[-] Copy sources...\n\n"
 ONBUILD COPY . $APP_SOURCE_DIR
-printf "\n[-] Update npm modules...\n\n"
 ONBUILD RUN cd $APP_SOURCE_DIR && \
   $BUILD_SCRIPTS_DIR/install-npm-debug-multistage.sh && \
   meteor list
