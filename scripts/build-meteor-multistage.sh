@@ -14,7 +14,7 @@ cd $APP_SOURCE_DIR
 # build the bundle
 printf "\n[-] Building Meteor application...\n\n"
 mkdir -p $APP_BUNDLE_DIR
-meteor build --debug --directory $APP_BUNDLE_DIR --server-only --verbose
+meteor build --directory $APP_BUNDLE_DIR --server-only --verbose
 mv $BUILD_SCRIPTS_DIR/entrypoint.sh $APP_BUNDLE_DIR/bundle/entrypoint.sh
 chown -R node:node $APP_BUNDLE_DIR
 # run npm install in bundle
