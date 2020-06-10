@@ -5,6 +5,7 @@ ENV APP_SOURCE_DIR /opt/meteor/src
 ENV APP_BUNDLE_DIR /opt/meteor/dist
 ENV BUILD_SCRIPTS_DIR /opt/build_scripts
 ENV NPM_DIRECTORY /opt/meteor/npm
+ENV METEOR_PROFILE 100
 
 # Add entrypoint and build scripts
 COPY scripts $BUILD_SCRIPTS_DIR

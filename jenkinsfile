@@ -1,5 +1,5 @@
 pipeline {
-    agent { label "node3" }
+    agent { label "builder" }
     options { disableConcurrentBuilds() }
     environment {
         DOCKERHUB_NAME = "everexdev/meteor"
